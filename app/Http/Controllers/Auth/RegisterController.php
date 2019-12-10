@@ -7,6 +7,9 @@ use App\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Http\Request;
+use Illuminate\Support\Str;
+
 
 class RegisterController extends Controller
 {
@@ -61,12 +64,51 @@ class RegisterController extends Controller
      * @param  array  $data
      * @return \App\User
      */
-    protected function create(array $data)
+
+    public function register(Request $request)
     {
-        return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
+
+        // dd('to aqui');
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|Regex:/^[\D]+$/i|max:100',
+            'email' => 'required|email',
+            'password' => 'required',
         ]);
+
+            if ($validator->passes()) {
+            $data = User::create([
+                'name' => $request->name,
+                'email' => $request->email,
+                'password' => bcrypt($request->password),
+                'remember_token' => Str::random(10),
+            ]);
+
+            $data->save();
+
+            $token = auth()->login($data);
+
+            return $this->respondWithToken([$token], 200);
+        }
+
+        return response()->json(['error' => 'Its problem in registration, verify data.'], 401);
     }
+
+    protected function respondWithToken($token)
+    {
+        return [
+            'token' => $token,
+            'token_type'   => 'bearer',
+            'expires_in' => auth('api')->factory()->getTTL() * 60
+        ];
+    }
+    // protected function create(array $data)
+    // {
+    //     return User::create([
+    //         'name' => $data['name'],
+    //         'email' => $data['email'],
+    //         'password' => Hash::make($data['password']),
+    //     ]);
+
+
+    // }
 }

@@ -6,7 +6,16 @@
 ## Installation
 
 OS X & Linux:
+```sh
+composer install
+```
+```sh
+php artisan key:generate
+```
 
+```sh
+npm install
+```
 
 Windows:
 

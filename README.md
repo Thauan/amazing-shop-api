@@ -1,5 +1,5 @@
 # <h1>Superior Shop</h1> 
-> Sua Loja Virtual OpenSource.
+> Sua loja virtual openSource [API].
 
 ![](header.png)
 

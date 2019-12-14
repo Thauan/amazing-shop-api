@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateMediaTable extends Migration
+class AddForeignBrandOnCommodities extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,9 @@ class CreateMediaTable extends Migration
      */
     public function up()
     {
-        Schema::create('media', function (Blueprint $table) {
-            $table->uuid('id')->primary();
-            $table->timestamps();
+        Schema::table('commodities', function (Blueprint $table) {
+            $table->uuid('brand_id');
+            $table->foreign('brand_id')->references('id')->on('brands');
         });
     }
 
@@ -26,6 +26,6 @@ class CreateMediaTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('media');
+        //
     }
 }

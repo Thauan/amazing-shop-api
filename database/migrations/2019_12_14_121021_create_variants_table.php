@@ -23,7 +23,7 @@ class CreateVariantsTable extends Migration
 
         Schema::table('commodities', function (Blueprint $table) {
             $table->uuid('variants_id');
-            $table->foreign('variants_id')->references('variants')->on('id');
+            $table->foreign('variants_id')->references('id')->on('variants');
         });
     }
 

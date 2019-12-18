@@ -18,7 +18,7 @@ class CreateBrandsTable extends Migration
             $table->string('name');
             $table->longText('brief');
             $table->string('web_address');
-            $table->boolean('active')->default('false');
+            $table->boolean('active')->default(false);
             $table->timestamps();
         });
     }

@@ -14,8 +14,16 @@ class CreateVariantsTable extends Migration
     public function up()
     {
         Schema::create('variants', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->uuid('id')->primary();
+            $table->string('type')->nullable();
+            $table->string('value');
+            $table->integer('quantity')->nullable();
             $table->timestamps();
+        });
+
+        Schema::table('commodities', function (Blueprint $table) {
+            $table->uuid('variants_id');
+            $table->foreign('variants_id')->references('variants')->on('id');
         });
     }
 

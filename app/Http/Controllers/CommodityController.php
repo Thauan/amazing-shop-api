@@ -46,6 +46,8 @@ class CommodityController extends Controller
           'brief' => $fill->brief,
           'created_at' => Carbon::now(),
         ]);
+
+        return response()->json(['Usuario registrado com sucesso', 200]);
     }
 
     /**

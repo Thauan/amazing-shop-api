@@ -4,11 +4,6 @@ namespace App\Services;
 class TokenService
 {
 
-    public function __construct(User $user)
-    {
-        $user = $this->user;
-    }
-
     public function respondWithToken($token)
     {
         return [

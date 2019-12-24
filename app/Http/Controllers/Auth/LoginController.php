@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
-// use App\Services\TokenService;
+use App\Services\TokenService;
 
 class LoginController extends Controller
 {
@@ -38,8 +38,9 @@ class LoginController extends Controller
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(TokenService $tokenResponse)
     {
+        $this->tokenResponse = $tokenResponse;
         $this->middleware('guest')->except('logout');
     }
 
@@ -57,20 +58,10 @@ class LoginController extends Controller
         $user = auth('api')->user();
 
         if ($token = $this->guard()->attempt($credentials)) {
-            return $this->respondWithToken([$token], 200);
+            return $this->tokenResponse->respondWithToken([$token], 200);
         }
-
         return response()->json(['error' => 'Sua solicitação não foi autorizada'], 401);
 
         // return response()->json(['user' => $user, 'token' => $token]);
-    }
-
-    protected function respondWithToken($token)
-    {
-        return [
-            'token' => $token,
-            'token_type'   => 'bearer',
-            'expires_in' => auth('api')->factory()->getTTL() * 60
-        ];
     }
 }

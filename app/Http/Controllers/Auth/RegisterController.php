@@ -3,13 +3,13 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-// use App\User;
-use App\Entities\User;
+use App\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use App\Services\TokenService;
 
 
 class RegisterController extends Controller
@@ -39,8 +39,10 @@ class RegisterController extends Controller
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(TokenService $tokenResponse)
     {
+        $this->tokenResponse = $tokenResponse;
+
         $this->middleware('guest');
     }
 
@@ -57,7 +59,6 @@ class RegisterController extends Controller
             'last_name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
-
             ]);
     }
 
@@ -70,8 +71,6 @@ class RegisterController extends Controller
 
     public function register(Request $request)
     {
-
-        // dd('to aqui');
         $validator = Validator::make($request->all(), [
             'name' => 'required|Regex:/^[\D]+$/i|max:100',
             'email' => 'required|email',
@@ -84,7 +83,7 @@ class RegisterController extends Controller
                 'name' => $request->name,
                 'last_name' => $request->last_name,
                 'email' => $request->email,
-                'password' => bcrypt($request->password),
+                'password' => Hash::make($request->password),
                 'remember_token' => Str::random(10),
             ]);
 
@@ -92,28 +91,10 @@ class RegisterController extends Controller
 
             $token = auth()->login($data);
 
-            return $this->respondWithToken([$token], 200);
+            return $this->tokenResponse->respondWithToken([$token], 200);
         }
 
         return response()->json(['error' => 'Its problem in registration, verify data.'], 401);
     }
 
-    protected function respondWithToken($token)
-    {
-        return [
-            'token' => $token,
-            'token_type'   => 'bearer',
-            'expires_in' => auth('api')->factory()->getTTL() * 60
-        ];
-    }
-    // protected function create(array $data)
-    // {
-    //     return User::create([
-    //         'name' => $data['name'],
-    //         'email' => $data['email'],
-    //         'password' => Hash::make($data['password']),
-    //     ]);
-
-
-    // }
 }

@@ -7,8 +7,9 @@ use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Validator;
-use App\Services\TokenService;
+use Illuminate\Support\Facades\Validator;
+
+// use App\Services\TokenService;
 
 class LoginController extends Controller
 {
@@ -59,7 +60,7 @@ class LoginController extends Controller
             return $this->respondWithToken([$token], 200);
         }
 
-        return response()->json(['error' => 'Unauthorized your request'], 401);
+        return response()->json(['error' => 'Sua solicitação não foi autorizada'], 401);
 
         // return response()->json(['user' => $user, 'token' => $token]);
     }

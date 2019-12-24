@@ -2,11 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use App\Commodity;
+use App\Models\Commodity;
 use Illuminate\Http\Request;
+// use App\Repositories\CommodityRepositoryInterface;
+
 
 class CommodityController extends Controller
 {
+
+    protected $repository;
+
+    public function __construct(){
+
+    }
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +22,10 @@ class CommodityController extends Controller
      */
     public function index()
     {
-        //
+
+        $commoditys = Commodity::with(['variants', 'brands'])->get();
+
+        return $commoditys;
     }
 
     /**

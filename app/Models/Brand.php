@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Traits\Uuids;
@@ -26,4 +26,9 @@ class Brand extends Model
     protected $dates = ['deleted_at'];
 
     protected $keyType = 'string';
+
+    public function commoditys()
+    {
+        return $this->hasMany(Commodity::class);
+    }
 }

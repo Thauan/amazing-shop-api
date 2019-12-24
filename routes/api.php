@@ -24,3 +24,11 @@ Route::group([
     Route::post('login', 'Auth\LoginController@login')->name('login');
     Route::post('register', 'Auth\RegisterController@register')->name('register');
 });
+
+Route::group([
+    // Prefixed with /user
+    'prefix' => 'commodity',
+    'middleware' => 'auth:api'
+], function () {
+    Route::get('commoditys', 'CommodityController@index')->name('commoditys');
+});

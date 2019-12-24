@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Commodity;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 // use App\Repositories\CommodityRepositoryInterface;
 
@@ -33,9 +34,20 @@ class CommodityController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        $fill = $request->all();
+
+        Commodity::create([
+          'name' => $fill->name,
+          'price' => $fill->price,
+          'description' => $fill->description,
+          'resume' => $fill->resume,
+          'brief' => $fill->brief,
+          'created_at' => Carbon::now(),
+        ]);
+
+        return response()->json(['Usuario registrado com sucesso', 200]);
     }
 
     /**

@@ -58,7 +58,7 @@ class LoginController extends Controller
         $user = auth('api')->user();
 
         if ($token = $this->guard()->attempt($credentials)) {
-            return $this->tokenResponse->respondWithToken([$token], 200);
+            return $this->tokenResponse->respondWithToken($token, $user, 200);
         }
         return response()->json(['error' => 'Sua solicitação não foi autorizada'], 401);
 

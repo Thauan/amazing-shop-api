@@ -34,6 +34,6 @@ class Commodity extends Model
 
     public function variants()
     {
-        return $this->belongsTo(Variant::class, 'variant_id');
+        return $this->belongsTo(Variant::class, 'variants_id');
     }
 }

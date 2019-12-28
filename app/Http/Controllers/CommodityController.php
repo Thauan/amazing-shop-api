@@ -5,16 +5,13 @@ namespace App\Http\Controllers;
 use App\Models\Commodity;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-// use App\Repositories\CommodityRepositoryInterface;
-
+use App\Repositories\Contracts\CommodityRepository;
 
 class CommodityController extends Controller
 {
 
-    protected $repository;
-
-    public function __construct(){
-
+    public function __construct(CommodityRepository $commodity){
+        $this->commodity = $commodity;
     }
     /**
      * Display a listing of the resource.
@@ -24,8 +21,8 @@ class CommodityController extends Controller
     public function index()
     {
 
-        $commoditys = Commodity::with(['variants', 'brands'])->get();
-
+        // $commoditys = Commodity::with(['variants', 'brands'])->get();
+        $commoditys = $this->commodity->list();
         return $commoditys;
     }
 

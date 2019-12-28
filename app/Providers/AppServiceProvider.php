@@ -3,8 +3,13 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use App\Repositories\CommodityRepository;
-use App\Repositories\CommodityRepositoryInterface;
+use App\Repositories\Contracts\UserRepository;
+use App\Repositories\EloquentUserRepository;
+use App\Repositories\Contracts\CommodityRepository;
+use App\Repositories\EloquentCommodityRepository;
+use Illuminate\Support\Facades\Schema;
+
+
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -14,7 +19,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->bind(CommodityRepositoryInterface::class, CommodityRepository::class);
+        $this->app->bind(CommodityRepository::class, EloquentCommodityRepository::class);
+        $this->app->bind(UserRepository::class, EloquentUserRepository::class);
     }
 
     /**
@@ -24,6 +30,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        Schema::defaultStringLength(191);
     }
 }

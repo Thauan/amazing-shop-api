@@ -28,7 +28,7 @@ Route::group([
 Route::group([
     // Prefixed with /user
     'prefix' => 'commodity',
-    'middleware' => 'auth:api'
+    'middleware' => 'api'
 ], function () {
     Route::get('commoditys', 'CommodityController@index')->name('commoditys');
 });

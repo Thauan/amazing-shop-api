@@ -10,7 +10,8 @@ use App\Repositories\Contracts\CommodityRepository;
 class CommodityController extends Controller
 {
 
-    public function __construct(CommodityRepository $commodity){
+    public function __construct(CommodityRepository $commodity)
+    {
         $this->commodity = $commodity;
     }
     /**
@@ -36,12 +37,12 @@ class CommodityController extends Controller
         $fill = $request->all();
 
         Commodity::create([
-          'name' => $fill->name,
-          'price' => $fill->price,
-          'description' => $fill->description,
-          'resume' => $fill->resume,
-          'brief' => $fill->brief,
-          'created_at' => Carbon::now(),
+            'name' => $fill->name,
+            'price' => $fill->price,
+            'description' => $fill->description,
+            'resume' => $fill->resume,
+            'brief' => $fill->brief,
+            'created_at' => Carbon::now(),
         ]);
 
         return response()->json(['Usuario registrado com sucesso', 200]);

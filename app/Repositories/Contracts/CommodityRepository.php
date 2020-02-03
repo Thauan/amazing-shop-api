@@ -15,6 +15,7 @@ interface CommodityRepository extends BaseRepository
 
     public function findById($id);
 
+    public function makeCommodity($request);
     //   public function CreatePayment(array $attributes);
 
     //   public function MyPays($page);

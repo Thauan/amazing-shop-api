@@ -12,20 +12,25 @@ use Tymon\JWTAuth\Facades\JWTAuth;
  */
 class EloquentCommodityRepository extends EloquentBaseRepository implements CommodityRepository
 {
-  protected $commodity;
+    protected $commodity;
 
-  public function __construct(Commodity $commodity)
-  {
-    parent::__construct($commodity);
-    $this->commodity = $commodity;
-  }
+    public function __construct(Commodity $commodity)
+    {
+        parent::__construct($commodity);
+        $this->commodity = $commodity;
+    }
 
-  public function list($page = null)
-  {
-    $commodity = $this->commodity->with(['variants', 'brands'])->get();
+    public function list($page = null)
+    {
+        $commodity = $this->commodity->with(['variants', 'brands'])->get();
 
-    return $commodity;
-  }
+        return $commodity;
+    }
 
+    public function findById($id)
+    {
+        $commodity = $this->commodity->find($id);
 
+        return $commodity;
+    }
 }

@@ -34,6 +34,16 @@ class CommodityController extends Controller
      */
     public function create(Request $request)
     {
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
         $fill = $request->all();
 
         Commodity::create([
@@ -49,17 +59,6 @@ class CommodityController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
      * Display the specified resource.
      *
      * @param  \App\Commodity  $commodity
@@ -67,7 +66,9 @@ class CommodityController extends Controller
      */
     public function show(Commodity $commodity)
     {
-        //
+        $commodity = $this->commodity->findById($commodity);
+
+        return $commodity;
     }
 
     /**

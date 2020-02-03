@@ -7,23 +7,25 @@ namespace App\Repositories\Contracts;
  */
 interface CommodityRepository extends BaseRepository
 {
-  /**
-   * @return \Illuminate\Database\Eloquent\Builder
-   */
+    /**
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
 
-  public function list();
+    public function list();
 
-//   public function CreatePayment(array $attributes);
+    public function findById($id);
 
-//   public function MyPays($page);
+    //   public function CreatePayment(array $attributes);
 
-//   public function PayShowId($id);
+    //   public function MyPays($page);
 
-//   public function AdminShowPayId($id);
+    //   public function PayShowId($id);
 
-//   public function updatePayStatus($id, $situation_pay_id);
+    //   public function AdminShowPayId($id);
 
-//   public function updatePay($id, array $attributes);
+    //   public function updatePayStatus($id, $situation_pay_id);
 
-  //public function delete($payment);
+    //   public function updatePay($id, array $attributes);
+
+    //public function delete($payment);
 }

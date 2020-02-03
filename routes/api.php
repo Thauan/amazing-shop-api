@@ -30,5 +30,5 @@ Route::group([
     'prefix' => 'commodity',
     'middleware' => 'api'
 ], function () {
-    Route::get('commoditys', 'CommodityController@index')->name('commoditys');
+    Route::resource('commoditys', 'CommodityController');
 });

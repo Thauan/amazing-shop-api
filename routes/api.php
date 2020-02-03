@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Route;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -30,5 +30,5 @@ Route::group([
     'prefix' => 'commodity',
     'middleware' => 'api'
 ], function () {
-    Route::get('commoditys', 'CommodityController@index')->name('commoditys');
+    Route::resource('commoditys', 'CommodityController');
 });

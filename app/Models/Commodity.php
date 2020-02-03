@@ -10,7 +10,7 @@ class Commodity extends Model
     use Uuids;
 
     protected $fillable = [
-        'name', 'price', 'description', 'brief'
+        'name', 'price', 'description', 'brief', 'brand_id', 'variants_id'
     ];
 
     protected $casts = [

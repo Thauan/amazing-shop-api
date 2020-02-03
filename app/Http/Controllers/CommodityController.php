@@ -34,18 +34,6 @@ class CommodityController extends Controller
      */
     public function create(Request $request)
     {
-        $fill = $request->all();
-
-        Commodity::create([
-            'name' => $fill->name,
-            'price' => $fill->price,
-            'description' => $fill->description,
-            'resume' => $fill->resume,
-            'brief' => $fill->brief,
-            'created_at' => Carbon::now(),
-        ]);
-
-        return response()->json(['Usuario registrado com sucesso', 200]);
     }
 
     /**
@@ -56,7 +44,9 @@ class CommodityController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->commodity->makeCommodity($request);
+
+        return response()->json(['Mercadoria registrada', 200]);
     }
 
     /**
@@ -67,7 +57,9 @@ class CommodityController extends Controller
      */
     public function show(Commodity $commodity)
     {
-        //
+        $commodity = $this->commodity->findById($commodity);
+
+        return $commodity;
     }
 
     /**

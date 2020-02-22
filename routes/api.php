@@ -26,9 +26,17 @@ Route::group([
 });
 
 Route::group([
-    // Prefixed with /user
-    'prefix' => 'commodity',
+    // Prefixed with /commodities
+    'prefix' => 'commodities',
     'middleware' => 'api'
 ], function () {
-    Route::resource('commoditys', 'CommodityController');
+    Route::resource('commodity', 'CommodityController');
+});
+
+Route::group([
+    // Prefixed with /user
+    'prefix' => 'brands',
+    'middleware' => 'api'
+], function () {
+    Route::resource('brand', 'BrandController');
 });

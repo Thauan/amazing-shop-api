@@ -31,10 +31,6 @@ class EloquentCommodityRepository extends EloquentBaseRepository implements Comm
     {
         $commodity = $this->commodity->create($request->all());
 
-        // if (!$commodity->brand) {
-        //     $commodity->brands->create([$request->brand_id => '1472d38a-2601-11ea-a1ae-681401a7c5a1']);
-        // };
-
         return $commodity;
     }
 

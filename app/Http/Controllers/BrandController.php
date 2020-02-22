@@ -55,9 +55,9 @@ class BrandController extends Controller
      * @param  \App\Brand  $brand
      * @return \Illuminate\Http\Response
      */
-    public function show(Brand $brand)
+    public function show($brand_id)
     {
-        //
+        return $this->brand->brandById($brand_id);
     }
 
     /**

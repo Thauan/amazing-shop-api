@@ -4,17 +4,24 @@ namespace App\Http\Controllers;
 
 use App\Models\Brand;
 use Illuminate\Http\Request;
+use App\Repositories\Contracts\BrandRepository;
 
 class BrandController extends Controller
 {
+    public function __construct(BrandRepository $brand)
+    {
+        $this->brand = $brand;
+    }
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
+
     public function index()
     {
-        $brands = Brand::all();
+        $brands = $this->brand->list();
 
         return $brands;
     }
@@ -37,7 +44,9 @@ class BrandController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->brand->makeBrand($request);
+
+        return response()->json(['Marca registrada', 200]);
     }
 
     /**

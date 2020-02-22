@@ -21,8 +21,6 @@ class CommodityController extends Controller
      */
     public function index()
     {
-
-        // $commoditys = Commodity::with(['variants', 'brands'])->get();
         $commoditys = $this->commodity->list();
         return $commoditys;
     }

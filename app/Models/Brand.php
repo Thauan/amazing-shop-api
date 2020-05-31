@@ -15,6 +15,7 @@ class Brand extends Model
 
     protected $casts = [
         'id' => 'string',
+        'commoditys.pivot.id' => 'string'
     ];
 
     protected $primaryKey = 'id';
@@ -27,8 +28,19 @@ class Brand extends Model
 
     protected $keyType = 'string';
 
+    public function getRouteKeyName()
+    {
+        return 'id';
+    }
+
     public function commoditys()
     {
-        return $this->hasMany(Commodity::class);
+
+        return $this->belongsToMany(
+            Commodity::class,
+            'brand_commodity',
+            'commodity_id',
+            'brand_id'
+        );
     }
 }

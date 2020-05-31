@@ -21,9 +21,10 @@ class CreateVariantsTable extends Migration
             $table->timestamps();
         });
 
-        Schema::table('commodities', function (Blueprint $table) {
-            $table->uuid('variants_id');
-            $table->foreign('variants_id')->references('id')->on('variants');
+        Schema::table('commodities_brand', function (Blueprint $table) {
+            $table->uuid('variants_id')->nullable();
+            $table->foreign('variants_id')->references('id')->on('variants')->onDelete('cascade');
+            // $table->primary(['variants_id']);
         });
     }
 

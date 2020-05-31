@@ -22,7 +22,7 @@ class EloquentCommodityRepository extends EloquentBaseRepository implements Comm
 
     public function list($page = null)
     {
-        $commodity = $this->commodity->with(['variants', 'brands'])->get();
+        $commodity = $this->commodity->with(['brands'])->get();
 
         return $commodity;
     }
@@ -32,6 +32,15 @@ class EloquentCommodityRepository extends EloquentBaseRepository implements Comm
         $commodity = $this->commodity->create($request->all());
 
         return $commodity;
+    }
+
+    public function attachBrand($request, $id)
+    {
+        $commodity = $this->commodity->find($id);
+        $brandId = $request->brand_ids;
+
+        if($commodity->brands) $commodity->brands()->sync([$brandId]);
+        if($commodity) $commodity->brands()->attach([$brandId]);
     }
 
     public function findById($id)

@@ -10,11 +10,12 @@ class Commodity extends Model
     use Uuids;
 
     protected $fillable = [
-        'name', 'price', 'description', 'brief', 'brand_id', 'variants_id'
+        'name', 'price', 'description', 'brief'
     ];
 
     protected $casts = [
         'id' => 'string',
+        'brands.pivot.id' => 'string'
     ];
 
     protected $primaryKey = 'id';
@@ -27,13 +28,23 @@ class Commodity extends Model
 
     protected $keyType = 'string';
 
+    public function getRouteKeyName()
+    {
+        return 'id';
+    }
+
     public function brands()
     {
-        return $this->belongsTo(Brand::class, 'brand_id');
+        return $this->belongsToMany(
+            Brand::class,
+            'brand_commodity',
+            'commodity_id',
+            'brand_id'
+        );
     }
 
     public function variants()
     {
-        return $this->belongsTo(Variant::class, 'variants_id');
+        return $this->belongsToMany(Variant::class, 'variants_id');
     }
 }

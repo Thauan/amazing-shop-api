@@ -22,9 +22,16 @@ class EloquentBrandRepository extends EloquentBaseRepository implements BrandRep
 
     public function list($page = null)
     {
-        $brand = $this->brand->with(['commoditys'])->get();
+        $brand = $this->brand->get();
 
         return $brand;
+    }
+
+    public function attachCommodities($id, $request)
+    {
+        $brand = $this->brand->find($id);
+
+        if($brand) $brand->attach([$request->commodities_ids]);
     }
 
     public function makeBrand($request)

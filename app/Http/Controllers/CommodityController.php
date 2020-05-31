@@ -22,6 +22,9 @@ class CommodityController extends Controller
     public function index()
     {
         $commoditys = $this->commodity->list();
+
+        if($commoditys->count() == 0) return response()->json(['message' => 'nenhuma mercadoria encontrada', 'error' => true], 200);
+
         return $commoditys;
     }
 
@@ -42,9 +45,13 @@ class CommodityController extends Controller
      */
     public function store(Request $request)
     {
-        $this->commodity->makeCommodity($request);
+        $commodity = $this->commodity->makeCommodity($request);
 
-        return response()->json(['Mercadoria registrada', 200]);
+        if($request->brand_ids) $this->commodity->attachBrand($request, $commodity->id);
+
+        if (!$commodity) return response()->json(['message' => 'Houve problema no registro da mercadoria', 'error' => true], 200);
+
+        return response()->json(['message' => 'Mercadoria registrada'], 200);
     }
 
     /**
@@ -55,7 +62,10 @@ class CommodityController extends Controller
      */
     public function show(Commodity $commodity)
     {
+
         $commodity = $this->commodity->findById($commodity);
+
+        if ($commodity->count() == 0) return response()->json(['message' => 'Esta mercadoria não foi encontrada', 'error' => true], 200);
 
         return $commodity;
     }
@@ -81,6 +91,12 @@ class CommodityController extends Controller
     public function update(Request $request, Commodity $commodity)
     {
         //
+    }
+
+
+    public function associateBrands(Request $request, $ids)
+    {
+
     }
 
     /**

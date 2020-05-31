@@ -13,9 +13,12 @@ class AddForeignBrandOnCommodities extends Migration
      */
     public function up()
     {
-        Schema::table('commodities', function (Blueprint $table) {
-            $table->uuid('brand_id');
-            $table->foreign('brand_id')->references('id')->on('brands');
+        Schema::create('commodities_brand', function (Blueprint $table) {
+            $table->uuid('brand_id')->nullable();
+            $table->foreign('brand_id')->references('id')->on('brands')->onDelete('cascade');
+            $table->uuid('commodity_id')->nullable();
+            $table->foreign('commodity_id')->references('id')->on('commodities')->onDelete('cascade');
+            // $table->primary(['brand_id', 'commodity_id']);
         });
     }
 
@@ -26,6 +29,6 @@ class AddForeignBrandOnCommodities extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('commodities_brand');
     }
 }

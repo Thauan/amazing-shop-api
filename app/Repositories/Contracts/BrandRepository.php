@@ -16,4 +16,6 @@ interface BrandRepository extends BaseRepository
     public function brandById($id);
 
     public function makeBrand($request);
+
+    public function attachCommodities($request, $id);
 }

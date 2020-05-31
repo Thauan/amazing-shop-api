@@ -34,7 +34,7 @@ Route::group([
 });
 
 Route::group([
-    // Prefixed with /user
+    // Prefixed with /brands
     'prefix' => 'brands',
     'middleware' => 'api'
 ], function () {

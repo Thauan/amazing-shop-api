@@ -83,6 +83,7 @@ class RegisterController extends Controller
                 'name' => $request->name,
                 'last_name' => $request->last_name,
                 'email' => $request->email,
+                'vip' => false,
                 'password' => Hash::make($request->password),
                 'remember_token' => Str::random(10),
             ]);
@@ -94,7 +95,7 @@ class RegisterController extends Controller
             return $this->tokenResponse->respondWithToken([$token], 200);
         }
 
-        return response()->json(['error' => 'Its problem in registration, verify data.'], 401);
+        return response()->json(['error' => 'Houve problema no registro, verifique os campos.'], 401);
     }
 
 }

@@ -34,13 +34,20 @@ class EloquentCommodityRepository extends EloquentBaseRepository implements Comm
         return $commodity;
     }
 
+    public function updateCommodity($request, $id)
+    {
+        $commodity = $this->findById($id);
+
+        $this->commodity->update([$request]);
+
+        return $commodity;
+    }
+
     public function attachBrand($request, $id)
     {
         $commodity = $this->commodity->find($id);
-        $brandId = $request->brand_ids;
 
-        if($commodity->brands) $commodity->brands()->sync([$brandId]);
-        if($commodity) $commodity->brands()->attach([$brandId]);
+        if($request->brand_ids && $commodity) $commodity->brands()->sync($request->input('brand_ids', []));
     }
 
     public function findById($id)

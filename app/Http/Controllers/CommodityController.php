@@ -71,17 +71,6 @@ class CommodityController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Commodity  $commodity
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Commodity $commodity)
-    {
-        //
-    }
-
-    /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -90,13 +79,13 @@ class CommodityController extends Controller
      */
     public function update(Request $request, Commodity $commodity)
     {
-        //
-    }
+        $commodity = $this->commodity->findById($commodity);
 
+        $this->commodity->updateCommodity($request->all(), $commodity);
 
-    public function associateBrands(Request $request, $ids)
-    {
+        if ($commodity->count() == 0) return response()->json(['message' => 'Não foi possivel atualizar, verifique a mercadoria', 'error' => true], 200);
 
+        return $commodity;
     }
 
     /**

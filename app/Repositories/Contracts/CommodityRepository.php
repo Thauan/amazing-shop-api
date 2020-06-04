@@ -17,5 +17,7 @@ interface CommodityRepository extends BaseRepository
 
     public function makeCommodity($request);
 
+    public function updateCommodity($request, $id);
+
     public function attachBrand($request, $id);
 }
